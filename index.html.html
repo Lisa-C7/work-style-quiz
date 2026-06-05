@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cellopoint 工作風格探索測驗</title>
+  <style>
+    :root {
+      --cp-yellow: #f4c400;
+      --cp-black: #1f1f1f;
+      --cp-gray: #f5f5f5;
+      --cp-border: #ddd;
+      --text: #222;
+      --muted: #666;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
+      color: var(--text);
+      background: #fafafa;
+      line-height: 1.6;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--cp-black), #3a3a3a);
+      color: var(--white);
+      padding: 36px 20px;
+      border-bottom: 8px solid var(--cp-yellow);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      font-size: 24px;
+      border-left: 8px solid var(--cp-yellow);
+      padding-left: 12px;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .subtitle {
+      color: #f0f0f0;
+      max-width: 760px;
+      margin: 0;
+    }
+
+    .notice {
+      background: #fff8d9;
+      border: 1px solid #f0d467;
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--cp-border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    }
+
+    .person-info {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 10px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--cp-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    .question {
+      border-top: 1px solid var(--cp-border);
+      padding: 18px 0;
+    }
+
+    .question:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .question-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .axis-tag {
+      display: inline-block;
+      background: var(--cp-black);
+      color: var(--white);
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-right: 8px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    label.option {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      border: 1px solid var(--cp-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #fff;
+      transition: 0.15s;
+    }
+
+    label.option:hover {
+      border-color: var(--cp-yellow);
+      background: #fffdf0;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+      accent-color: var(--cp-yellow);
+    }
+
+    .actions {
+      position: sticky;
+      bottom: 0;
+      background: rgba(250,250,250,0.95);
+      border-top: 1px solid var(--cp-border);
+      padding: 16px 0;
+      margin-top: 24px;
+      backdrop-filter: blur(6px);
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .primary {
+      background: var(--cp-yellow);
+      color: var(--cp-black);
+    }
+
+    .secondary {
+      background: var(--cp-black);
+      color: var(--white);
+      margin-left: 8px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .score-boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .score-box {
+      background: var(--cp-gray);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .score-box .num {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--cp-black);
+    }
+
+    .type-name {
+      font-size: 34px;
+      font-weight: 900;
+      margin: 4px 0 8px;
+    }
+
+    .type-sub {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 16px;
+    }
+
+    .pill {
+      background: #fff8d9;
+      border: 1px solid #f0d467;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    .result-section {
+      margin-top: 16px;
+    }
+
+    .result-section ul {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .chart-wrap {
+      background: #fff;
+      border: 1px solid var(--cp-border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: #b00020;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .options,
+      .result-grid,
+      .score-boxes,
+      .person-info {
+        grid-template-columns: 1fr;
+      }
+
+      .secondary {
+        margin-left: 0;
+        margin-top: 8px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 8mm;
+    }
+
+    @media print {
+      .actions,
+      #quizSection,
+      #resultSection .card:nth-of-type(2),
+      .footer-note {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        line-height: 1.32;
+        font-size: 12px;
+      }
+
+      .hero {
+        background: #fff !important;
+        color: #000 !important;
+        border-bottom: 3px solid #000;
+        padding: 6px 10px 8px;
+      }
+
+      .hero-inner {
+        max-width: none;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin: 0 0 2px;
+      }
+
+      .subtitle {
+        color: #000;
+        font-size: 11px;
+        max-width: none;
+      }
+
+      .notice {
+        display: none !important;
+      }
+
+      .container {
+        max-width: none;
+        padding: 6px;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 0;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        padding-left: 8px;
+        border-left-width: 5px;
+      }
+
+      h3 {
+        font-size: 14px;
+        margin: 8px 0 2px;
+      }
+
+      .result-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .score-boxes {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      .score-box {
+        padding: 6px;
+        border-radius: 8px;
+      }
+
+      .score-box .num {
+        font-size: 21px;
+        line-height: 1.1;
+      }
+
+      .type-name {
+        font-size: 25px;
+        margin: 2px 0;
+      }
+
+      .type-sub,
+      p {
+        margin: 3px 0;
+      }
+
+      .pill-list {
+        gap: 4px;
+        margin: 4px 0 6px;
+      }
+
+      .pill {
+        padding: 2px 7px;
+        font-size: 11px;
+      }
+
+      .result-section {
+        margin-top: 5px;
+      }
+
+      .result-section ul {
+        margin: 2px 0 0;
+        padding-left: 18px;
+      }
+
+      .result-section li {
+        margin: 0;
+      }
+
+      .chart-wrap {
+        padding: 6px;
+        border-radius: 8px;
+      }
+
+      svg {
+        max-height: 430px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Cellopoint 工作風格探索測驗</h1>
+      <p class="subtitle">
+        本測驗協助你理解自己在溝通、決策、互動與工作推進上的行為傾向。結果僅作為自我覺察與團隊溝通參考。
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="notice">
+      <strong>填寫說明：</strong>
+      請依照你平常最自然、最常出現的工作狀態作答。每題選擇 1 個最符合你的描述，完成後會立即顯示 A / B 分數、象限位置與初步類型。
+    </section>
+
+    <section id="quizSection" class="card">
+      <h2>測驗題目</h2>
+      <div class="person-info">
+        <div class="field">
+          <label for="employeeName">姓名</label>
+          <input id="employeeName" type="text" placeholder="請輸入姓名" />
+        </div>
+        <div class="field">
+          <label for="department">部門</label>
+          <input id="department" type="text" placeholder="請輸入部門" />
+        </div>
+      </div>
+      <div id="questions"></div>
+
+      <div class="actions">
+        <button class="primary" type="button" onclick="calculateResult()">看我的結果</button>
+        <button class="secondary" type="button" onclick="resetQuiz()">重新填寫</button>
+        <div id="error" class="error hidden"></div>
+      </div>
+    </section>
+
+    <section id="resultSection" class="hidden">
+      <div class="card">
+        <h2>你的測驗結果</h2>
+
+        <div class="result-grid">
+          <div>
+            <div class="score-boxes">
+              <div class="score-box">
+                <div>A 分數</div>
+                <div id="scoreA" class="num">--</div>
+                <small>行為果斷力</small>
+              </div>
+              <div class="score-box">
+                <div>B 分數</div>
+                <div id="scoreB" class="num">--</div>
+                <small>行為反應力</small>
+              </div>
+              <div class="score-box">
+                <div>中心距離</div>
+                <div id="centerDistance" class="num">--</div>
+                <small>越低越接近變色龍型</small>
+              </div>
+            </div>
+
+            <div class="type-name" id="typeName">--</div>
+            <div class="type-sub" id="typeSub">--</div>
+            <p><strong>姓名：</strong><span id="resultName">--</span>　<strong>部門：</strong><span id="resultDept">--</span></p>
+
+            <div class="pill-list" id="keywords"></div>
+
+            <div class="result-section">
+              <h3>可能優勢</h3>
+              <ul id="strengths"></ul>
+            </div>
+
+            <div class="result-section">
+              <h3>可能盲點</h3>
+              <ul id="blindspots"></ul>
+            </div>
+
+            <div class="result-section">
+              <h3>合作溝通建議</h3>
+              <ul id="communication"></ul>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <svg viewBox="0 0 520 520" aria-label="A B 雙軸象限圖">
+              <rect x="0" y="0" width="520" height="520" fill="#ffffff"/>
+              <line x1="260" y1="40" x2="260" y2="480" stroke="#222" stroke-width="2"/>
+              <line x1="40" y1="260" x2="480" y2="260" stroke="#222" stroke-width="2"/>
+
+              <text x="430" y="250" font-size="16" font-weight="700">A 行為果斷力</text>
+              <text x="272" y="58" font-size="16" font-weight="700">B 行為反應力</text>
+
+              <text x="86" y="96" font-size="22" font-weight="800">貓頭鷹型</text>
+              <text x="360" y="96" font-size="22" font-weight="800">老虎型</text>
+              <text x="86" y="438" font-size="22" font-weight="800">無尾熊型</text>
+              <text x="365" y="438" font-size="22" font-weight="800">孔雀型</text>
+              <text x="222" y="248" font-size="18" font-weight="800">變色龍型</text>
+
+              <text x="105" y="282" font-size="14">10</text>
+              <text x="198" y="282" font-size="14">20</text>
+              <text x="254" y="282" font-size="14">25</text>
+              <text x="315" y="282" font-size="14">30</text>
+              <text x="420" y="282" font-size="14">40</text>
+
+              <text x="270" y="92" font-size="14">10</text>
+              <text x="270" y="178" font-size="14">20</text>
+              <text x="270" y="254" font-size="14">25</text>
+              <text x="270" y="342" font-size="14">30</text>
+              <text x="270" y="438" font-size="14">40</text>
+
+              <rect x="232" y="232" width="56" height="56" fill="#fff8d9" stroke="#f0d467" stroke-width="2" rx="8"/>
+              <circle id="resultDot" cx="260" cy="260" r="10" fill="#f4c400" stroke="#222" stroke-width="3"/>
+              <text id="resultLabel" x="276" y="254" font-size="14" font-weight="700">你的分數</text>
+            </svg>
+            <p class="footer-note">
+              圖中中心點以 A=25、B=25 為基準。B 分數在原始圖上是由上往下增加，因此本圖會依同樣方向呈現。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>結果使用提醒</h2>
+        <p>
+          這份結果不是人格定論，也不是能力評分。比較適合拿來討論：「我習慣怎麼溝通」、「我在壓力下可能怎麼反應」、「別人怎麼跟我合作會比較順」。
+        </p>
+        <button class="primary" type="button" onclick="window.print()">匯出結果 PDF</button>
+        <button class="secondary" type="button" onclick="downloadResultCsv()">下載 Excel 資料檔</button>
+        <button class="secondary" type="button" onclick="submitToPowerAutomate()">寫入 Excel</button>
+        <button class="secondary" type="button" onclick="backToQuiz()">回到測驗</button>
+        <p id="sendStatus" class="footer-note"></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 若要串接 Power Automate，請把 HTTP Request Trigger 產生的 URL 貼在這裡。
+    // 若留空，按下「寫入 Excel」時只會提醒尚未設定。
+    const POWER_AUTOMATE_URL = "";
+
+    let lastResult = null;
+
+    const questions = [
+      {
+        id: "A01",
+        axis: "A",
+        title: "與別人談話時",
+        options: [
+          "很少用目光注視別人",
+          "稍有注視別人，目光和緩",
+          "比較喜歡注視別人",
+          "時時注視別人，目光敏銳"
+        ]
+      },
+      {
+        id: "A02",
+        axis: "A",
+        title: "平時行動時",
+        options: [
+          "動作慢且謹慎仔細",
+          "動作稍慢",
+          "動作迅速",
+          "動作非常迅速，作風明快"
+        ]
+      },
+      {
+        id: "A03",
+        axis: "A",
+        title: "在提出要求或表示意見時",
+        options: [
+          "絕少要求別人，不好意思表示意見",
+          "偶有要求或示意，然而態度相當和緩",
+          "會正襟危坐些，一派正經的樣子",
+          "習慣正襟危坐，身體向前傾"
+        ]
+      },
+      {
+        id: "A04",
+        axis: "A",
+        title: "與人交往時",
+        options: [
+          "皆由別人採取主動",
+          "較不主動，偶有主動的行為",
+          "比較主動，常有主動的行為",
+          "喜歡採取主動"
+        ]
+      },
+      {
+        id: "A05",
+        axis: "A",
+        title: "討論問題時",
+        options: [
+          "習慣於請教別人",
+          "傾向於向別人請教",
+          "會主動告訴別人一些有關事情",
+          "喜歡告訴別人事情"
+        ]
+      },
+      {
+        id: "A06",
+        axis: "A",
+        title: "決定事情時",
+        options: [
+          "相當優柔寡斷，常有難以決定的現象",
+          "稍有優柔寡斷",
+          "雖偶爾有猶豫，但多明快",
+          "當機立斷"
+        ]
+      },
+      {
+        id: "A07",
+        axis: "A",
+        title: "在開會時",
+        options: [
+          "經常只列席聽別人發言，除非被指名否則不發言",
+          "不太發表意見，說話速度慢，語氣平和",
+          "適時發表意見",
+          "常發表意見、說話快、嗓門大"
+        ]
+      },
+      {
+        id: "A08",
+        axis: "A",
+        title: "要別人作決定時",
+        options: [
+          "不會催促別人",
+          "不太會催促別人",
+          "會催促別人",
+          "頻頻催促別人施加壓力"
+        ]
+      },
+      {
+        id: "A09",
+        axis: "A",
+        title: "處理較重要的決定時",
+        options: [
+          "小心翼翼，很不喜歡冒風險",
+          "儘管偶有明快的決定，仍不太喜歡冒風險",
+          "比較願意冒險",
+          "積極進取，甘冒風險"
+        ]
+      },
+      {
+        id: "A10",
+        axis: "A",
+        title: "在發表意見，提出要求和下命令時",
+        options: [
+          "多為試探語氣，氣勢弱",
+          "傾向於請求別人配合幫忙",
+          "比較喜歡用強調語氣",
+          "氣勢強，一副理直氣壯的架勢"
+        ]
+      },
+      {
+        id: "B01",
+        axis: "B",
+        title: "平時與人談話時",
+        options: [
+          "很少用手勢",
+          "偶爾用手勢",
+          "常用手勢",
+          "經常用手勢，而且動作大"
+        ]
+      },
+      {
+        id: "B02",
+        axis: "B",
+        title: "平常舉止行為",
+        options: [
+          "相當拘謹",
+          "稍稍拘謹",
+          "較為自然",
+          "非常灑脫自然"
+        ]
+      },
+      {
+        id: "B03",
+        axis: "B",
+        title: "平時生活態度",
+        options: [
+          "嚴謹自律",
+          "稍偏嚴謹",
+          "較輕鬆閒逸",
+          "玩樂活動不少"
+        ]
+      },
+      {
+        id: "B04",
+        axis: "B",
+        title: "平時言談",
+        options: [
+          "很保守，臉上表情很少",
+          "稍稍保守，臉上表情不多",
+          "較為隨和，臉上表情自然",
+          "很親切，臉上表情豐富"
+        ]
+      },
+      {
+        id: "B05",
+        axis: "B",
+        title: "情感的表達方面",
+        options: [
+          "嚴格地控制自己的情緒與感情流露",
+          "稍微控制感情的流露",
+          "能適度自在地表達感情",
+          "情感表達率真生動"
+        ]
+      },
+      {
+        id: "B06",
+        axis: "B",
+        title: "處理事務時",
+        options: [
+          "只重任務的達成，不講人情",
+          "比較重視任務的達成，不太注重人情",
+          "重視人情世故及和諧關係",
+          "非常注重人情世故的考量"
+        ]
+      },
+      {
+        id: "B07",
+        axis: "B",
+        title: "對閒聊、開玩笑、軼聞趣事",
+        options: [
+          "一點兒也不感興趣",
+          "不太感興趣",
+          "稍感興趣",
+          "很感興趣"
+        ]
+      },
+      {
+        id: "B08",
+        axis: "B",
+        title: "決定事情時",
+        options: [
+          "完全根據事實，不受感情左右",
+          "較能根據事實，偶爾也受感情影響",
+          "會受感情影響",
+          "很容易受感情左右"
+        ]
+      },
+      {
+        id: "B09",
+        axis: "B",
+        title: "對時間的運用",
+        options: [
+          "非常重視，很有效率",
+          "還算重視",
+          "並不太注意，工作能完成即可",
+          "不曾想過這個問題，覺得沒必要生活太緊張"
+        ]
+      },
+      {
+        id: "B10",
+        axis: "B",
+        title: "交朋友方面",
+        options: [
+          "相當有選擇性的交往",
+          "有部分選擇性的交往",
+          "大部分都不排斥，可以交往",
+          "喜歡交各式各樣朋友"
+        ]
+      }
+    ];
+
+    const typeInfo = {
+      "老虎型": {
+        sub: "高果斷、低反應：目標導向，重視效率與推進。",
+        keywords: ["果斷", "目標導向", "重效率", "敢決策"],
+        strengths: ["能快速聚焦問題與結果。", "適合推進專案、決策與處理卡關事項。", "遇到挑戰時較願意承擔責任。"],
+        blindspots: ["可能因為太快進入結論，讓他人感到壓力。", "可能忽略過程中的情緒、關係或細節。", "在溝通上容易被解讀為強勢。"],
+        communication: ["請先講結論，再補充重點資料。", "討論時明確說明目標、期限與決策點。", "若有不同意見，建議用事實、風險與替代方案溝通。"]
+      },
+      "孔雀型": {
+        sub: "高果斷、高反應：重視表達、互動與影響力。",
+        keywords: ["熱情", "表達力", "影響力", "帶動氣氛"],
+        strengths: ["容易帶動討論與團隊氣氛。", "擅長表達想法、建立連結與推動參與。", "適合對外溝通、提案、活動與跨部門串聯。"],
+        blindspots: ["可能想法很多，但收斂與追蹤需要補強。", "有時會因氣氛或人際因素影響判斷。", "細節、文件與後續確認可能需要提醒。"],
+        communication: ["可以先用互動討論開場，再收斂成具體行動項目。", "給予回饋時可先肯定，再說明需要補強的重點。", "會議結束前建議明確確認負責人、期限與交付成果。"]
+      },
+      "無尾熊型": {
+        sub: "低果斷、高反應：重視穩定、和諧與安全感。",
+        keywords: ["溫和", "穩定", "有耐心", "重視和諧"],
+        strengths: ["配合度高，重視團隊關係與穩定運作。", "能耐心支持他人，適合需要細膩協作的工作。", "在壓力環境中較能維持溫和與穩定。"],
+        blindspots: ["可能不容易主動表達反對意見。", "面對衝突或快速變動時，可能需要較多時間適應。", "可能因顧及他人感受而延後決策。"],
+        communication: ["請給清楚背景、期待與時間，避免突然丟出模糊任務。", "可以明確邀請他表達看法，例如：你會擔心哪一段？", "改變計畫時，建議說明原因與過渡安排。"]
+      },
+      "貓頭鷹型": {
+        sub: "低果斷、低反應：重視邏輯、品質與風險控管。",
+        keywords: ["理性", "謹慎", "重品質", "重邏輯"],
+        strengths: ["擅長分析、檢查與建立標準。", "重視品質、正確性與風險控管。", "適合制度、流程、稽核、資料整理與問題拆解。"],
+        blindspots: ["可能因追求完整而決策較慢。", "對模糊或變動太快的情境可能較不舒服。", "表達上可能較保守，讓他人不容易知道他的想法。"],
+        communication: ["請提供資料、標準、脈絡與判斷依據。", "若需要快速決策，請先說明最低可接受標準。", "給予思考時間，並清楚定義截止時間。"]
+      },
+      "變色龍型": {
+        sub: "接近中心：彈性較高，可能依情境調整行為風格。",
+        keywords: ["彈性", "適應力", "情境判斷", "平衡"],
+        strengths: ["能依不同對象與情境調整互動方式。", "在團隊中較能理解不同風格的人。", "適合擔任協調、轉譯與橋接角色。"],
+        blindspots: ["有時不容易被看出明確偏好。", "過度配合情境時，可能忽略自己的真實需求。", "若外部期待不清楚，可能需要更多定位與方向。"],
+        communication: ["可以直接詢問：你希望我現在扮演什麼角色？", "適合給予明確目標，再讓他用自己的方式完成。", "若任務涉及多方需求，建議先確認優先順序。"]
+      }
+    };
+
+    function renderQuestions() {
+      const wrapper = document.getElementById("questions");
+      wrapper.innerHTML = questions.map((q, index) => `
+        <div class="question">
+          <div class="question-title">
+            <span class="axis-tag">${q.axis}</span>
+            ${index + 1}. ${q.title}
+          </div>
+          <div class="options">
+            ${q.options.map((text, i) => {
+              const score = i + 1;
+              return `
+                <label class="option">
+                  <input type="radio" name="${q.id}" value="${score}" />
+                  <span>${score}｜${text}</span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function getResultType(a, b) {
+      if (a >= 23 && a <= 27 && b >= 23 && b <= 27) {
+        return "變色龍型";
+      }
+
+      if (a >= 25 && b < 25) {
+        return "老虎型";
+      }
+
+      if (a >= 25 && b >= 25) {
+        return "孔雀型";
+      }
+
+      if (a < 25 && b >= 25) {
+        return "無尾熊型";
+      }
+
+      return "貓頭鷹型";
+    }
+
+    function calculateResult() {
+      let scoreA = 0;
+      let scoreB = 0;
+      const missing = [];
+
+      questions.forEach(q => {
+        const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+        if (!selected) {
+          missing.push(q.id);
+          return;
+        }
+
+        const score = Number(selected.value);
+        if (q.axis === "A") {
+          scoreA += score;
+        } else {
+          scoreB += score;
+        }
+      });
+
+      const error = document.getElementById("error");
+      if (missing.length > 0) {
+        error.textContent = `還有 ${missing.length} 題尚未填寫，請完成所有題目後再看結果。`;
+        error.classList.remove("hidden");
+        return;
+      }
+      error.classList.add("hidden");
+
+      const type = getResultType(scoreA, scoreB);
+      const info = typeInfo[type];
+      const distance = Math.sqrt(Math.pow(scoreA - 25, 2) + Math.pow(scoreB - 25, 2)).toFixed(1);
+      const employeeName = document.getElementById("employeeName").value.trim() || "未填寫";
+      const department = document.getElementById("department").value.trim() || "未填寫";
+
+      lastResult = {
+        submittedAt: new Date().toISOString(),
+        employeeName,
+        department,
+        scoreA,
+        scoreB,
+        centerDistance: distance,
+        type
+      };
+
+      document.getElementById("scoreA").textContent = scoreA;
+      document.getElementById("scoreB").textContent = scoreB;
+      document.getElementById("centerDistance").textContent = distance;
+      document.getElementById("typeName").textContent = type;
+      document.getElementById("typeSub").textContent = info.sub;
+      document.getElementById("resultName").textContent = employeeName;
+      document.getElementById("resultDept").textContent = department;
+
+      document.getElementById("keywords").innerHTML = info.keywords.map(k => `<span class="pill">${k}</span>`).join("");
+      document.getElementById("strengths").innerHTML = info.strengths.map(item => `<li>${item}</li>`).join("");
+      document.getElementById("blindspots").innerHTML = info.blindspots.map(item => `<li>${item}</li>`).join("");
+      document.getElementById("communication").innerHTML = info.communication.map(item => `<li>${item}</li>`).join("");
+
+      updateChart(scoreA, scoreB);
+
+      document.getElementById("resultSection").classList.remove("hidden");
+      document.getElementById("resultSection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function updateChart(a, b) {
+      const min = 10;
+      const max = 40;
+      const axisMin = 40;
+      const axisMax = 480;
+      const scale = (axisMax - axisMin) / (max - min);
+
+      const x = axisMin + (a - min) * scale;
+      const y = axisMin + (b - min) * scale;
+
+      document.getElementById("resultDot").setAttribute("cx", x);
+      document.getElementById("resultDot").setAttribute("cy", y);
+
+      const label = document.getElementById("resultLabel");
+      label.setAttribute("x", Math.min(x + 14, 430));
+      label.setAttribute("y", Math.max(y - 10, 50));
+      label.textContent = `A${a} / B${b}`;
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll("input[type='radio']").forEach(input => input.checked = false);
+      document.getElementById("employeeName").value = "";
+      document.getElementById("department").value = "";
+      document.getElementById("resultSection").classList.add("hidden");
+      document.getElementById("error").classList.add("hidden");
+      const status = document.getElementById("sendStatus");
+      if (status) status.textContent = "";
+      lastResult = null;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function backToQuiz() {
+      document.getElementById("quizSection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function ensureResult() {
+      if (!lastResult) {
+        alert("請先完成測驗並產生結果。");
+        return false;
+      }
+      return true;
+    }
+
+    function resultText() {
+      if (!lastResult) return "";
+      return [
+        `姓名：${lastResult.employeeName}`,
+        `部門：${lastResult.department}`,
+        `A分數：${lastResult.scoreA}`,
+        `B分數：${lastResult.scoreB}`,
+        `中心距離：${lastResult.centerDistance}`,
+        `類型：${lastResult.type}`,
+        `產生時間：${lastResult.submittedAt}`
+      ].join("\n");
+    }
+
+    function downloadResultCsv() {
+      if (!ensureResult()) return;
+
+      const headers = ["submittedAt", "employeeName", "department", "scoreA", "scoreB", "centerDistance", "type"];
+      const values = headers.map(key => `"${String(lastResult[key]).replaceAll('"', '""')}"`);
+      const csv = "\uFEFF" + headers.join(",") + "\n" + values.join(",");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `工作風格探索測驗_${lastResult.department}_${lastResult.employeeName}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function submitToPowerAutomate() {
+      if (!ensureResult()) return;
+
+      const status = document.getElementById("sendStatus");
+
+      if (!POWER_AUTOMATE_URL) {
+        status.textContent = "尚未設定 Power Automate URL。請先在 HTML 的 POWER_AUTOMATE_URL 貼上 Flow 產生的 HTTP URL。";
+        return;
+      }
+
+      try {
+        status.textContent = "寫入中，請稍候...";
+        const response = await fetch(POWER_AUTOMATE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(lastResult)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        status.textContent = "已送出結果，請至 Excel 確認資料是否寫入。";
+      } catch (error) {
+        status.textContent = `寫入失敗：${error.message}。若是在 SharePoint 環境，請確認 Power Automate URL、CORS/權限與公司安全政策。`;
+      }
+    }
+
+    renderQuestions();
+  </script>
+</body>
+</html>
